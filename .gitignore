@@ -1,0 +1,17 @@
+.vscode/
+# Exercism Metadata
+.exercism/
+# C
+*.o
+*.out
+build/
+# Python
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+.coverage
+*.py[cod]
+#
+.Rhistory
+.RData
+.Ruserdata
