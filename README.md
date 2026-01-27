@@ -8,7 +8,7 @@ This repository contains [my solutions](https://exercism.org/profiles/AyomideA-S
 | :--- | :--- | :--- |
 | C | 1/84 | Functions |
 | Python | 2/143 | Basics |
-| R | 1/85 | Basics |
+| R | 2/85 | Basics |
 | x86-64 Assembly | 1/114 | Basic Syntax |
 
 ## 🛠 Project Structure
