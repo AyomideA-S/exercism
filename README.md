@@ -8,7 +8,7 @@ This repository contains [my solutions](https://exercism.org/profiles/AyomideA-S
 | :--- | :--- | :--- |
 | C | 1/84 | Functions |
 | Python | 2/143 | Basics |
-| R | 3/85 | Basics |
+| R | 4/85 | Conditionals, Arithmetic |
 | x86-64 Assembly | 1/114 | Basic Syntax |
 
 ## 🛠 Project Structure
@@ -19,3 +19,10 @@ Each folder is organized by language and then by exercise name:
 ## 📝 Learning Notes
 
 I often document "Aha!" moments from these challenges in my personal PKM system. Significant breakthroughs regarding algorithms or language-specific syntax are mirrored here in the exercise directories.
+
+### Cartesian Coordinates
+
+Distance between two points ($x_1, y_1$) and ($x_2, y_2$) is calculated using the formula:
+$$
+d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
+$$
