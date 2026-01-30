@@ -20,10 +20,32 @@ Each folder is organized by language and then by exercise name:
 
 I often document "Aha!" moments from these challenges in my personal PKM system. Significant breakthroughs regarding algorithms or language-specific syntax are mirrored here in the exercise directories.
 
-### Cartesian Coordinates
+### General Concepts
+
+#### Cartesian Coordinates
 
 Distance between two points ($x_1, y_1$) and ($x_2, y_2$) is calculated using the formula:
 
 $$
 d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
 $$
+
+### R
+
+#### Vectors
+
+Vectors in R are sequences of data elements of the same basic type. They can be created using the `c()` function:
+
+```r
+my_vector <- c("name" = "value", "age" = "25", "city" = "New York")
+print(my_vector)
+# Output:
+#     name   age        city
+#  "value"  "25"  "New York"
+names(my_vector)
+# [1] "name"  "age"  "city"
+my_vector["age"]
+# [1] "25"
+my_vector[1]
+# [1] "value"
+```
