@@ -8,7 +8,7 @@ This repository contains [my solutions](https://exercism.org/profiles/AyomideA-S
 | :--- | :--- | :--- |
 | C | 1/84 | Functions |
 | Python | 2/143 | Basics |
-| R | 17/85 | Conditionals, Arithmetic, Vectors, Lists, Binary, S3, ISODate |
+| R | 18/85 | Conditionals, Arithmetic, Vectors, Lists, Binary, S3, ISODate |
 | x86-64 Assembly | 1/114 | Basic Syntax |
 
 ## 🛠 Project Structure
