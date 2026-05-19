@@ -15,3 +15,5 @@ __pycache__/
 .Rhistory
 .RData
 .Ruserdata
+# x86-64 Assembly
+tests
