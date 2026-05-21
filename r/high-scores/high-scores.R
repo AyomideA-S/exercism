@@ -11,9 +11,6 @@ personal_best <- function(scores) {
 }
 
 personal_top_three <- function(scores) {
-  if (length(scores) >= 3) {
-    scores[order(scores, na.last = TRUE, decreasing = TRUE)][1:3]
-  } else {
-    scores[order(scores, decreasing = TRUE)][1:length(scores)]
-  }
+  sorted <- scores[order(scores, na.last = TRUE, decreasing = TRUE)]
+  head(sorted, 3)
 }

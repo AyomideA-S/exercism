@@ -9,7 +9,7 @@ This repository contains [my solutions](https://exercism.org/profiles/AyomideA-S
 | C | 1/84 | Functions |
 | Python | 2/143 | Basics |
 | R | 19/86 | Conditionals, Arithmetic, Vectors, Lists, Binary, S3, ISODate |
-| x86-64 Assembly | 3/119 | Basic Syntax |
+| x86-64 Assembly | 3/119 | Basic Syntax, Integers |
 
 ## 🛠 Project Structure
 
