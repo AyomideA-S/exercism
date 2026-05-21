@@ -27,10 +27,9 @@ global remaining_minutes_in_oven
 ; Return:
 ;   the number of minutes remaining in the oven
 remaining_minutes_in_oven:
-    ; TODO: define the 'remaining_minutes_in_oven' function
     ; This function takes one number as argument and must return a number
-    call expected_minutes_in_oven   ; Get the expected oven time into rax
-    sub rax, rdi    ; Subtract minutes spent in oven from expected time
+    mov     rax, OVEN_TIME  ; Load the fixed expected oven time
+    sub     rax, rdi        ; Subtract minutes spent in oven from expected time
     ret
 
 global preparation_time_in_minutes
