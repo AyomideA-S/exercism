@@ -1,4 +1,5 @@
-OVEN_TIME equ 40    ; The expected oven time in minutes is 40
+OVEN_TIME equ 40        ; The expected oven time in minutes is 40
+LAYER_PREP_TIME equ 2   ; Each layer takes 2 minutes to prepare
 
 section .text
 
@@ -20,8 +21,8 @@ global remaining_minutes_in_oven
 ;   the number of minutes remaining in the oven
 remaining_minutes_in_oven:
     ; This function takes one number as argument and must return a number
-    call expected_minutes_in_oven   ; Get the expected oven time into rax
-    sub rax, rdi    ; Subtract minutes spent in oven from expected time
+    mov rax, OVEN_TIME  ; Load the fixed expected oven time
+    sub rax, rdi        ; Subtract minutes spent in oven from expected time
     ret
 
 global preparation_time_in_minutes
@@ -32,7 +33,7 @@ global preparation_time_in_minutes
 ;   the total preparation time in minutes
 preparation_time_in_minutes:
     ; This function takes one number as argument and must return a number
-    imul rax, rdi, 2    ; Multiply number of layers by 2 to get the total prep time
+    imul rax, rdi, LAYER_PREP_TIME    ; Multiply number of layers by the preparation time per layer
     ret
 
 global elapsed_time_in_minutes
@@ -44,8 +45,8 @@ global elapsed_time_in_minutes
 ;   the total elapsed time in minutes
 elapsed_time_in_minutes:
     ; This function takes two numbers as arguments and must return a number
-    imul rax, rdi, 2    ; Multiply number of layers by 2 to get the total prep time
-    add rax, rsi        ; Add the time spent in the oven to the preparation time
+    imul rax, rdi, LAYER_PREP_TIME  ; Multiply number of layers by the preparation time per layer
+    add rax, rsi                    ; Add the time spent in the oven to the preparation time
     ret
 
 %ifidn __OUTPUT_FORMAT__,elf64
