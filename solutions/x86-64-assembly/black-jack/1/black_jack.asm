@@ -91,10 +91,10 @@ higher_card:
     jbe .bail_out                   ; If it's 10 or lower, it's a number card, so we can bail out of resolving
     mov bl, al                      ; Move the card number (which is 14 for an ace) into bl
     mov r12, 1                      ; Set r12 to 1 to indicate that we are resolving a non-number card
-    cmp rax, CA                     ; Compare the first card number to 14 (the value of an ace)
-    je value_of_card.ace          ; Call the value_of_card.ace function to get the value of an ace
-    call value_of_card.face_card    ; Call the value_of_card.face_card function to get the value of the face card
-    ret
++    cmp rax, CA                     ; Compare the first card number to 14 (the value of an ace)
++    je value_of_card.ace            ; Tail-call into value_of_card.ace; it returns directly to the caller of higher_card
++    call value_of_card.face_card    ; Call the value_of_card.face_card function to get the value of the face card, then return below
++    ret
 
 .resolve_card_two:  ; Resolve the value of the first card if it's a non-number card
     cmp rax, C10                    ; Compare the first card number to 10 (the value of a 10)
