@@ -29,7 +29,7 @@ extract_lower_bits:
     ret
 
 .main:
-    and ah, 0 ; Mask out the higher 8 bits to leave only the lower 8 bits in al
+    xor ah, ah  ; Mask out the higher 8 bits to leave only the lower 8 bits in al
     ret
 
 global extract_redundant_bits
@@ -45,7 +45,7 @@ extract_redundant_bits:
 
 .main:
     and al, ah  ; Perform bitwise AND to get redundant bits
-    and ah, 0   ; Mask out the higher 8 bits to leave only the redundant bits in al
+    xor ah, ah  ; Mask out the higher 8 bits to leave only the redundant bits in al
     ret
 
 global set_message_bits
@@ -61,7 +61,7 @@ set_message_bits:
 
 .main:
     or al, ah   ; Perform bitwise OR to set bits in al that are set in ah
-    and ah, 0   ; Mask out the higher 8 bits to leave only the message bits in al
+    xor ah, ah  ; Mask out the higher 8 bits to leave only the message bits in al
     ret
 
 global rotate_private_key
