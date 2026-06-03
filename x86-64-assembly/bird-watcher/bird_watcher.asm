@@ -67,7 +67,12 @@ global today_count
 ;   rax: A 1-byte number representing the most recent entry for the current week
 today_count:
     call save_count.load_currents   ; Load current week's counts and length into rax and rdx respectively
+    cmp qword [cw_len], 0           ; Compare the current week length with 0
+    je .no_entries                  ; If there are no entries for the current week, do nothing
     mov al, byte [rax + rdx - 1]    ; Load the most recent entry for the current week into rax
+    ret
+
+.no_entries:    ; No entries for the current week, do nothing
     ret
 
 global update_today_count
@@ -79,11 +84,8 @@ global update_today_count
 update_today_count:
     call save_count.load_currents   ; Load current week's counts and length into rax and rdx respectively
     cmp qword [cw_len], 0           ; Compare the current week length with 0
-    je .no_entries                  ; If there are no entries for the current week, do nothing
+    je today_count.no_entries       ; If there are no entries for the current week, do nothing
     add byte [rax + rdx - 1], dil   ; Update the most recent entry for the current week with the new count
-    ret
-
-.no_entries:    ; No entries for the current week, do nothing
     ret
 
 global update_week_counts
