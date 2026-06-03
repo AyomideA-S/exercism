@@ -2,7 +2,7 @@
 default rel
 
 section .data
-    lw_counts db 0, 2, 5, 3, 7, 8, 4    ; Last week's counts, 7 bytes for 7 days, last byte is zero
+    lw_counts db 0, 2, 5, 3, 7, 8, 4, 0 ; Last week's counts, 7 bytes for 7 days, last byte is zero
 
 section .bss
     cw_counts resb 8    ; Current week's counts, 8 bytes to store up to 7 days and a zero byte
