@@ -22,8 +22,8 @@ get_box_weight:
     imul rbx, r8                    ; Multiply to get the total weight of the first product
     add rax, rbx                    ; Add the weight of the first product to the total weight
     ; Calculate the weight of the second product and add it to rax
-    mov rbx, rdx                  ; Move the number of items of the second product into rbx
-    mov r8, rcx                   ; Move the weight of each item of the second product into r8
+    mov rbx, rdx                    ; Move the number of items of the second product into rbx
+    mov r8, rcx                     ; Move the weight of each item of the second product into r8
     imul rbx, r8                    ; Multiply to get the total weight of the second product
     add rax, rbx                    ; Add the weight of the second product to the total weight
     ret                             ; Return the total weight of the box in rax

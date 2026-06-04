@@ -1,4 +1,3 @@
-%include "debug.mac"
 default rel
 
 section .data

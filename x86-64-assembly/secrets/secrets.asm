@@ -1,5 +1,3 @@
-%include "debug.mac"
-
 section .text
 
 global extract_higher_bits
