@@ -2,8 +2,9 @@
 default rel
 
 section .data
-    billable_hours dq 8.0   ; 8 billable hours in a workday 
+    billable_hours dq 8.0   ; 8 billable hours in a workday
     billable_days dq 22.0   ; 22 billable days in a month
+    percent_100 dq 100.0    ; Constant value for percentage calculations
 
 section .text
 
@@ -26,12 +27,11 @@ global apply_discount
 ; Returns:
 ;   xmm0: The price with discount applied (64-bit floating-point number)
 apply_discount:
-    mov rax, 100        ; Load 100 into rax for percentage calculation
-    cvtsi2sd xmm3, rax  ; Convert 100 to a double and store in xmm3
-    movsd xmm2, xmm3    ; Copy 100 to xmm2 for later use
-    subsd xmm2, xmm1    ; Calculate (100 - discount) and store in xmm2
-    divsd xmm2, xmm3    ; Calculate (100 - discount) / 100 and store in xmm2
-    mulsd xmm0, xmm2    ; Apply the discount to the price by multiplying the original price with the discount factor
+    movsd xmm3, qword [percent_100] ; Load 100 into xmm3 for percentage calculation
+    movsd xmm2, xmm3                ; Copy 100 to xmm2 for later use
+    subsd xmm2, xmm1                ; Calculate (100 - discount) and store in xmm2
+    divsd xmm2, xmm3                ; Calculate (100 - discount) / 100 and store in xmm2
+    mulsd xmm0, xmm2                ; Apply the discount to the price by multiplying the original price with the discount factor
     ret
 
 global monthly_rate
@@ -59,8 +59,7 @@ global days_in_budget
 ; Returns:
 ;   eax: The number of complete days of work the budget covers as a 32-bit unsigned integer, rounded down
 days_in_budget:
-    movsd xmm8, qword [billable_hours]  ; Load billable hours into xmm8
-    mulsd xmm0, xmm8                    ; Calculate daily rate by multiplying hourly rate with billable hours
+    call daily_rate                     ; Calculate the daily rate and store it in xmm0
     call apply_discount                 ; Apply discount to the daily rate
     cvtsi2sd xmm1, rdi                  ; Convert the budget from an integer to a double and store in xmm1
     divsd xmm1, xmm0                    ; Divide the budget by the daily rate
