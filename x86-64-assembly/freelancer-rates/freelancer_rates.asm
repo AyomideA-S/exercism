@@ -1,4 +1,3 @@
-%include "debug.mac"
 default rel
 
 section .data
@@ -27,10 +26,9 @@ global apply_discount
 ; Returns:
 ;   xmm0: The price with discount applied (64-bit floating-point number)
 apply_discount:
-    movsd xmm3, qword [percent_100] ; Load 100 into xmm3 for percentage calculation
-    movsd xmm2, xmm3                ; Copy 100 to xmm2 for later use
+    movsd xmm2, qword [percent_100] ; Load 100 into xmm3 for percentage calculation
     subsd xmm2, xmm1                ; Calculate (100 - discount) and store in xmm2
-    divsd xmm2, xmm3                ; Calculate (100 - discount) / 100 and store in xmm2
+    divsd xmm2, qword [percent_100] ; Calculate (100 - discount) / 100 and store in xmm2
     mulsd xmm0, xmm2                ; Apply the discount to the price by multiplying the original price with the discount factor
     ret
 
