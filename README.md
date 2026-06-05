@@ -9,7 +9,7 @@ This repository contains [my solutions](https://exercism.org/profiles/AyomideA-S
 | C | 1/84 | Functions |
 | Python | 2/143 | Basics |
 | R | 19/86 | Conditionals, Arithmetic, Vectors, Lists, Binary, S3, ISODate |
-| x86-64 Assembly | 7/123 | Basic Syntax, Integers, Conditionals, Memory, Bit Manipulation, Arrays, Floating-Point Numbers |
+| x86-64 Assembly | 8/124 | Basic Syntax, Integers, Conditionals, Memory, Bit Manipulation, Arrays, Floating-Point Numbers |
 
 ## 🛠 Project Structure
 
