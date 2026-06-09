@@ -7,9 +7,9 @@ This repository contains [my solutions](https://exercism.org/profiles/AyomideA-S
 | Language | Progress | Key Concepts Covered |
 | :--- | :--- | :--- |
 | C | 1/84 | Functions |
-| Python | 2/146 | Basics |
+| Python | 2/143 | Basics |
 | R | 19/89 | Conditionals, Arithmetic, Vectors, Lists, Binary, S3, ISODate |
-| x86-64 Assembly | 9/125 | Basic Syntax, Integers, Conditionals, Memory, Bit Manipulation, Arrays, Floating-Point Numbers, Loops |
+| x86-64 Assembly | 10/125 | Basic Syntax, Integers, Conditionals, Memory, Bit Manipulation, Arrays, Floating-Point Numbers, Loops, Strings |
 
 ## 🛠 Project Structure
 
