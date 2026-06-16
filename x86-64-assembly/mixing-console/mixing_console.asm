@@ -31,7 +31,7 @@ global remove_bleed
 remove_bleed:
     movdqa xmm0, [rsi]          ; Load 8 signed 16-bit samples from track into xmm0
     psubsw xmm0, [rdx]          ; Subtract the corresponding samples in xmm0 and rdx, with saturation
-    movdqa oword [rdi], xmm0    ; Write the result to the output memory location
+    movdqu oword [rdi], xmm0    ; Write the result to the output memory location
     ret
 
 global combine_meters
@@ -46,7 +46,7 @@ global combine_meters
 ; Returns:
 ;   None
 combine_meters:
-    movdqu xmm0, [rsi]          ; Load 16 unsigned 8-bit values from meter_a into xmm0
+    movdqa xmm0, [rsi]          ; Load 16 unsigned 8-bit values from meter_a into xmm0
     paddusb xmm0, [rdx]         ; Add the corresponding values in xmm0 and rdx, with saturation
     movdqa oword [rdi], xmm0    ; Write the result to the output memory location
     ret
