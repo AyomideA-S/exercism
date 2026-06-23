@@ -53,8 +53,8 @@ global coarsen_displacements
 ;   None
 coarsen_displacements:
     movdqa xmm0, [rsi]      ; Load the 4 readings into xmm0
-    movq xmm1, rdx          ; Load the shift value into xmm1
-    psrad xmm0, xmm1        ; Perform an arithmetic right shift on each signed integer in xmm0 by the amount specified in xmm1, rounding toward negative infinity
+    movd xmm1, edx          ; Load shift count into xmm1 low 32 bits (psrad only reads low 32)
+    psrad xmm0, xmm1        ; Arithmetic right shift each signed 32-bit lane by shift count, rounding toward negative infinity
     movdqa [rdi], xmm0      ; Store the coarsened counts back to memory
     ret
 
@@ -100,20 +100,27 @@ toggle_calibration:
 global amplify_trace
 ; amplify_trace function
 ; Description:
-;   This function multiplies each reading by 2 raised to its channel's gain.
-;   This is done by manipulating the exponent field of the reading, without any actual multiplication.
+;   Multiplies each reading by 2^gain by adding the gain directly to the exponent field
+;   of each float's bit pattern. Sign and mantissa bits are preserved by masking.
 ; Arguments:
 ;   rdi — `result`: 16-byte aligned memory address where the 4 amplified readings are written
-;   rsi — `trace`: 16-byte aligned memory address of the readings, with 4 32-bit floating-point numbers
-;   rdx — `gains`: 16-byte aligned memory address of the per-channel gains, with 4 signed 32-bit integers
+;   rsi — `trace`:  16-byte aligned memory address of the readings, with 4 32-bit floats
+;   rdx — `gains`:  16-byte aligned memory address of the gains, with 4 signed 32-bit integers
 ; Returns:
 ;   None
 amplify_trace:
-    movdqa xmm0, [rsi]  ; Load the 4 readings into xmm0
-    movdqa xmm1, [rdx]  ; Load the 4 gains into xmm1
-    pslld xmm1, 23      ; Shift the gains left by 23 bits to align them with the exponent field of the readings
-    paddd xmm0, xmm1    ; Add the shifted gains to the readings, effectively multiplying each reading by 2 raised to its gain
-    movdqa [rdi], xmm0  ; Store the amplified readings back to memory
+    movdqa xmm0, [rsi]           ; Load the 4 readings
+    movdqa xmm1, [rdx]           ; Load the 4 gains
+    pslld  xmm1, 23              ; Shift gains into the exponent field position
+
+    movdqa xmm2, [exp_mask]      ; Load the exponent mask (bits 30-23)
+    pand   xmm2, xmm0            ; xmm2 = exponent bits of each reading, isolated
+    paddd  xmm2, xmm1            ; xmm2 = adjusted exponent bits only (gain added safely)
+
+    pand   xmm0, [sign_man_mask] ; xmm0 = sign + mantissa bits of each reading, isolated
+    por    xmm0, xmm2            ; xmm0 = recombined: adjusted exponent + original sign/mantissa
+
+    movdqa [rdi], xmm0           ; Store the amplified readings
     ret
 
 %ifidn __OUTPUT_FORMAT__,elf64
