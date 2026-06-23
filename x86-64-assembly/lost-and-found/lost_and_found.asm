@@ -1,4 +1,3 @@
-%include "debug.mac"
 default rel
 section .text
 
@@ -64,7 +63,7 @@ global insert_found_item
 ; Arguments:
 ;   rdi: The address for a space in memory where the monthly list is located.
 ;   rsi: The current number of entries already stored in the list, as a 64-bit unsigned integer.
-;   A new entry to be added to the list.
+;   rdx: The address of a new entry to be added to the list.
 ; Note:
 ;   Each entry takes up 120 bytes, which is too large to pass in a register (per the
 ;   System V ABI), so it is passed on the stack instead. At function entry, it sits
@@ -72,14 +71,11 @@ global insert_found_item
 ; Returns:
 ;   This function has no return value.
 insert_found_item:
-    ; No prologue/epilogue: this function makes no calls and never modifies
-    ; rsp, so [rsp + 8] stays valid throughout, and there are no callee-saved
-    ; registers to preserve.
-    imul rcx, rsi, 120  ; Calculate the offset for the new entry based on the current number of entries (rsi) and the size of each entry (120 bytes)
-    add rdi, rcx        ; Calculate the address for the new entry in the monthly list by adding the offset to the base address (rdi)
-    mov rcx, 15         ; Set rcx to the number of 8-byte chunks to copy (120 / 8 = 15)
-    lea rsi, [rsp + 8]  ; Load the address of the new entry from the stack
-    rep movsq           ; Copy the new entry to the monthly list, 8 bytes at a time
+    imul rsi, rsi, 120  ; Calculate the offset for the new entry based on the current number of entries (rsi) and the size of each entry (120 bytes)
+    add rdi, rsi        ; Calculate the address for the new entry in the monthly list by adding the offset to the base address (rdi)
+    mov rcx, 15         ; Set the number of 8-byte chunks to copy (120 bytes / 8 bytes per chunk = 15)
+    mov rsi, rdx        ; Set rsi to the address of the new entry to be added (passed in rdx)
+    rep movsq           ; Copy the new entry from the source (rsi) to the destination (rdi) in 8-byte chunks
     ret
 
 
